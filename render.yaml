@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: constructai
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn main:app --app-dir backend --host 0.0.0.0 --port $PORT --proxy-headers
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
+      - key: PUBLIC_DEMO
+        value: "1"
+      - key: CONSTRUCT_DATA_DIR
+        value: /tmp/constructai-data
